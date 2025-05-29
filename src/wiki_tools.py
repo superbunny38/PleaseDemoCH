@@ -1,8 +1,6 @@
 import os
 from typing import List
 
-
-
 def get_document(html_path: str) -> str:
     """
     Retrieve the content of a document given its HTML file path.
