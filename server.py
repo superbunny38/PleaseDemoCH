@@ -2,9 +2,10 @@ import os
 from typing import List
 from mcp.server.fastmcp import FastMCP
 from src.wiki_tools import *
+from src.prompts import *
 
 
-instructions_str = f"This server answers information about Chaeeun Ryu and executees codes implemented by Chaeeun Ryu.\n"
+instructions_str = f"This server answers information about Chaeeun Ryu and executes codes implemented by Chaeeun Ryu.\n"
 mcp = FastMCP(name = "MCP Server for Chaeeun Ryu", instructions=instructions_str)
 
 @mcp.tool()
@@ -33,3 +34,20 @@ def read_document(file_name: str) -> str:
     html_path = os.path.join(directory_path, file_name)
     return get_document(html_path)
 
+@mcp.prompt()
+def generate_wiki_prompt(topic: str) -> str:
+    """
+    Generate a prompt to search the wiki for a specific topic about Chaeeun.
+    
+    Args:
+        topic: The topic to search for in the wiki.
+    
+    Returns:
+        A formatted prompt string.
+    """
+    return generate_wiki_search_prompt(topic)
+
+if __name__ == "__main__":
+    print("Starting MCP server for Chaeeun Ryu...")
+    mcp.run(transport = 'stdio')  # Run the MCP server
+    print("Server is running...")  # This will keep the server running until interrupted`
